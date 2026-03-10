@@ -21,8 +21,8 @@ jobs:
       - name: Configure Databricks DEV
         run: |
           databricks configure --token <<EOF
-          ${{ secrets.DATABRICKS_DEV_HOST }}
-          ${{ secrets.DATABRICKS_DEV_TOKEN }}
+          ${{ secrets.DEV_HOST }}
+          ${{ secrets.DEV_TOKEN }}
           EOF
 
       - name: Deploy Notebook to DEV
@@ -45,8 +45,8 @@ jobs:
       - name: Configure Databricks PROD
         run: |
           databricks configure --token <<EOF
-          ${{ secrets.DATABRICKS_PROD_HOST }}
-          ${{ secrets.DATABRICKS_PROD_TOKEN }}
+          ${{ secrets.PROD_HOST }}
+          ${{ secrets.PROD_TOKEN }}
           EOF
 
       - name: Deploy Notebook to PROD

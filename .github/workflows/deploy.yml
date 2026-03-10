@@ -51,4 +51,4 @@ jobs:
 
       - name: Deploy Notebook to PROD
         run: |
-          databricks workspace import_dir ${{secrets.NOTEBOOK_FOLDER}} ${{secrets.DEV_WORKSPACE_PATH}} --overwrite
+          databricks workspace import_dir ${{secrets.NOTEBOOK_FOLDER}} ${{secrets.PROD_WORKSPACE_PATH}} --overwrite

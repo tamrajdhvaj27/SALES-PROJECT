@@ -27,7 +27,7 @@ jobs:
 
       - name: Deploy Notebook to DEV
         run: |
-          databricks workspace import_dir notebooks /Shared/dev_notebooks --overwrite
+          databricks workspace import_dir ${{secrets.NOTEBOOK_FOLDER}} ${{secrets.DEV_WORKSPACE_PATH}} --overwrite
 
 
   deploy-prod:
@@ -51,4 +51,4 @@ jobs:
 
       - name: Deploy Notebook to PROD
         run: |
-          databricks workspace import_dir notebooks /Shared/prod_notebooks --overwrite
+          databricks workspace import_dir ${{secrets.NOTEBOOK_FOLDER}} ${{secrets.DEV_WORKSPACE_PATH}} --overwrite

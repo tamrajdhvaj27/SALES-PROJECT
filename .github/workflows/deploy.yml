@@ -1,0 +1,54 @@
+name: Deploy Sales Notebook to Databricks
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  deploy-dev:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Install Databricks CLI
+        run: |
+          pip install databricks-cli
+
+      - name: Configure Databricks DEV
+        run: |
+          databricks configure --token <<EOF
+          ${{ secrets.DATABRICKS_DEV_HOST }}
+          ${{ secrets.DATABRICKS_DEV_TOKEN }}
+          EOF
+
+      - name: Deploy Notebook to DEV
+        run: |
+          databricks workspace import_dir notebooks /Shared/dev_notebooks --overwrite
+
+
+  deploy-prod:
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Install Databricks CLI
+        run: |
+          pip install databricks-cli
+
+      - name: Configure Databricks PROD
+        run: |
+          databricks configure --token <<EOF
+          ${{ secrets.DATABRICKS_PROD_HOST }}
+          ${{ secrets.DATABRICKS_PROD_TOKEN }}
+          EOF
+
+      - name: Deploy Notebook to PROD
+        run: |
+          databricks workspace import_dir notebooks /Shared/prod_notebooks --overwrite
